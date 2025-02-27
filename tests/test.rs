@@ -7,14 +7,14 @@ mod tests {
     #[test]
     fn generic_input() {
         assert!(glob_match("**/*", "foo"));
-        assert!(glob_match("**/*".to_string(), "foo"));
-        assert!(glob_match(&"**/*".to_string(), "foo"));
-        assert!(glob_match("**/*".to_string(), "foo".to_string()));
-        assert!(glob_match(&"**/*".to_string(), &"foo".to_string()));
+        assert!(glob_match("**/*", "foo"));
+        assert!(glob_match("**/*", "foo"));
+        assert!(glob_match("**/*", "foo"));
+        assert!(glob_match("**/*", "foo"));
 
         assert!(glob_match("**/*".as_bytes(), "foo"));
         assert!(glob_match("**/*".as_bytes(), "foo".as_bytes()));
-        assert!(glob_match("**/*".as_bytes(), "foo".to_string()));
+        assert!(glob_match("**/*".as_bytes(), "foo"));
     }
 
     #[test]
@@ -1656,8 +1656,7 @@ mod tests {
         assert!(glob_match("{a,{d,e}b}/c", "a/c"));
         assert!(glob_match("{**/a,**/b}", "b"));
 
-        let patterns = vec![
-      "{src,extensions}/**/test/**/{fixtures,browser,common}/**/*.{ts,js}",
+        let patterns = ["{src,extensions}/**/test/**/{fixtures,browser,common}/**/*.{ts,js}",
       "{extensions,src}/**/{media,images,icons}/**/*.{svg,png,gif,jpg}",
       "{.github,build,test}/**/{workflows,azure-pipelines,integration,smoke}/**/*.{yml,yaml,json}",
       "src/vs/{base,editor,platform,workbench}/test/{browser,common,node}/**/[a-z]*[tT]est.ts",
@@ -1666,8 +1665,7 @@ mod tests {
       "**/{electron-sandbox,electron-main,browser,node}/**/{*[sS]ervice*,*[cC]ontroller*}.ts",
       "{src,extensions}/**/{common,browser,electron-sandbox}/**/*{[cC]ontribution,[sS]ervice}.ts",
       "src/vs/{base,platform,workbench}/**/{test,browser}/**/*{[mM]odel,[cC]ontroller}*.ts",
-      "extensions/**/{browser,common,node}/{**/*[sS]ervice*,**/*[pP]rovider*}.ts",
-    ];
+      "extensions/**/{browser,common,node}/{**/*[sS]ervice*,**/*[pP]rovider*}.ts"];
 
         let input = std::fs::read_to_string("tests/fixtures/input.txt").unwrap();
 
