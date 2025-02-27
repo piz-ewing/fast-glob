@@ -26,10 +26,5 @@ path = "tests/test.rs"
 name = "bench"
 harness = false
 
-[profile.release]
-lto = true
-panic = 'abort'
-codegen-units = 1
-
 [dependencies]
 arrayvec = "0.7.6"
