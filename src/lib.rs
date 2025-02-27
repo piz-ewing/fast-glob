@@ -72,7 +72,10 @@ type BraceStack = ArrayVec<(u32, u32), 10>;
 pub fn glob_match(glob: impl AsRef<[u8]>, path: impl AsRef<[u8]>) -> bool {
     let glob = glob.as_ref();
     let path = path.as_ref();
+    glob_match_impl(glob, path)
+}
 
+fn glob_match_impl(glob: &[u8], path: &[u8]) -> bool {
     let mut state = State::default();
 
     let mut negated = false;
