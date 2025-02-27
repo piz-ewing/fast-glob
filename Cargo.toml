@@ -10,6 +10,7 @@ categories = ["filesystem"]
 documentation = "https://docs.rs/fast-glob"
 description = "A high-performance glob matching crate for Rust"
 repository = "https://github.com/oxc-project/fast-glob.git"
+include = ["/src"]
 
 [[test]]
 name = "test"
