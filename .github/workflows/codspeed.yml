@@ -1,32 +1,28 @@
-name: codspeed-benchmarks
+name: CodSpeed
+
+permissions: {}
 
 on:
   push:
     branches:
       - "main"
   pull_request:
-  # `workflow_dispatch` allows CodSpeed to trigger backtest
-  # performance analysis in order to generate initial data.
-  workflow_dispatch:
 
 jobs:
   benchmarks:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
-      - name: Setup rust toolchain, cache and cargo-codspeed binary
-        uses: moonrepo/setup-rust@ede6de059f8046a5e236c94046823e2af11ca670 # v1.2.2
+      - uses: oxc-project/setup-rust@cd82e1efec7fef815e2c23d296756f31c7cdc03d # v1.0.0
         with:
-          channel: stable
-          cache-target: release
-          bins: cargo-codspeed
+          cache-key: benchmark
+          save-cache: ${{ github.ref_name == 'main' }}
+          tools: cargo-codspeed
 
-      - name: Build the benchmark target(s)
-        run: cargo codspeed build
+      - run: cargo codspeed build
 
-      - name: Run the benchmarks
-        uses: CodSpeedHQ/action@0b6e7a3d96c9d2a6057e7bcea6b45aaf2f7ce60b # v3.8.0
+      - uses: CodSpeedHQ/action@0b6e7a3d96c9d2a6057e7bcea6b45aaf2f7ce60b # v3.8.0
         with:
           run: cargo codspeed run
           token: ${{ secrets.CODSPEED_TOKEN }}
