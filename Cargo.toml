@@ -33,3 +33,4 @@ wax = "0.6.0"
 [features]
 default = []
 codspeed = ["criterion2/codspeed"]
+match_separator = []

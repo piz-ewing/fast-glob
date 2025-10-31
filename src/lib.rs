@@ -293,6 +293,7 @@ impl State {
                             self.glob_index += 1;
                         }
 
+                        #[cfg(not(feature = "match_separator"))]
                         if !in_globstar
                             && self.path_index < path.len()
                             && is_separator(path[self.path_index] as char)
@@ -303,6 +304,14 @@ impl State {
                         continue;
                     }
                     b'?' if self.path_index < path.len() => {
+                        #[cfg(feature = "match_separator")]
+                        {
+                            self.glob_index += 1;
+                            self.path_index += 1;
+                            continue;
+                        }
+
+                        #[cfg(not(feature = "match_separator"))]
                         if !is_separator(path[self.path_index] as char) {
                             self.glob_index += 1;
                             self.path_index += 1;
